@@ -1,0 +1,41 @@
+services:
+  frontend:
+  # Build first with:
+  ## docker build -t pog .
+    image: pog
+    ports:
+      - "8080:8080"
+    networks:
+      - front-tier
+      - back-tier
+    # configs:
+    #   - httpd-config
+    # secrets:
+    #   - server-certificate
+    depends_on:
+      - backend
+
+  backend:
+    environment:
+      - POSTGRES_PASSWORD=pogtest
+    image: postgres:15
+    restart: always
+    volumes:
+      - db-data:/etc/data
+    networks:
+      - back-tier
+
+volumes:
+  db-data:
+
+# configs:
+#   httpd-config:
+#     external: true
+
+# secrets:
+#   server-certificate:
+#     external: true
+
+networks:
+  front-tier: {}
+  back-tier: {}
