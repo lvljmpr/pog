@@ -1,4 +1,4 @@
-package main
+package api
 
 import (
 	"fmt"
@@ -17,6 +17,6 @@ func handleRequests() {
 	log.Fatal(http.ListenAndServe(":8000", nil))
 }
 
-func main() {
+func ApiStart() {
 	handleRequests()
 }
